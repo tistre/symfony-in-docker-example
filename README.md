@@ -26,9 +26,29 @@ $ docker exec \
 ```
 
 That’s all it took to set up the latest Symfony skeleton on the latest 
-PHP version – now I could access my application on `http://localhost:8080/`.
+PHP version! 
 
-The only thing I changed in the Symfony application was directing Symfony 
+Now I could access my application on `http://localhost:8080/`. 
+Or run Symfony’s `console` command:
+
+```
+$ docker exec \
+  --workdir /opt/app --user daemon:daemon \
+  -it $PHPCONTAINERID \
+  bin/console about
+ -------------------- --------------------------------- 
+  Symfony                                               
+ -------------------- --------------------------------- 
+  Version              4.3.1
+  …                            
+ -------------------- --------------------------------- 
+  PHP                                                   
+ -------------------- --------------------------------- 
+  Version              7.3.5        
+  … 
+``` 
+
+The only thing I changed in the Symfony application afterwards was directing Symfony 
 logs to STDOUT so I could see them as Docker container output.
 To do this, I added [Monolog](https://github.com/Seldaek/monolog/blob/master/README.md)
 via Composer:
