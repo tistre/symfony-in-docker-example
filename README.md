@@ -7,3 +7,50 @@ A minimal example of using these together:
 * [Symfony](https://symfony.com) 4 framework
 * [Nginx](https://nginx.org) Web server
 * [Docker](https://www.docker.com)
+
+First, I created an empty `app` directory, 
+the `docker-compose.yml` file 
+and everything in the `docker` directory.
+
+I started the Docker containers via PhpStorm (`docker-compose up` would 
+work, too).
+
+Then I ran `composer` in the PHP Docker container 
+(replacing `$PHPCONTAINERID` with the ID shown by `docker ps`):
+
+```
+$ docker exec \
+  --workdir /opt --user daemon:daemon \
+  -it $PHPCONTAINERID \
+  composer create-project symfony/skeleton app
+```
+
+That’s all it took to set up the latest Symfony skeleton on the latest 
+PHP version – now I could access my application on `http://localhost:8080/`.
+
+The only thing I changed in the Symfony application was directing Symfony 
+logs to STDOUT so I could see them as Docker container output.
+To do this, I added [Monolog](https://github.com/Seldaek/monolog/blob/master/README.md)
+via Composer:
+
+```
+$ docker exec \
+  --workdir /opt/app --user daemon:daemon \ 
+  -it $PHPCONTAINERID \
+  composer require symfony/monolog-bundle
+```
+
+… and modified `app/config/packages/dev/monolog.yaml`, replacing
+
+```
+path: "%kernel.logs_dir%/%kernel.environment%.log"
+```
+
+with:
+
+```
+path: "php://stdout"
+```
+
+As the next step, you will likely want to 
+[create your first page in Symfony](https://symfony.com/doc/current/page_creation.html)!  
