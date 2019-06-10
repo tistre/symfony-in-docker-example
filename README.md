@@ -1,6 +1,6 @@
 # Simple example of a Symfony 4 project in Docker
 
-A minimal example of using these together: 
+This repository contains a minimal example of using these together: 
 
 * [PHP](https://www.php.net) 7
 * [Composer](https://getcomposer.org)
@@ -8,6 +8,8 @@ A minimal example of using these together:
 * [Nginx](https://nginx.org) Web server
 * [Docker](https://www.docker.com)
 
+How I set up the Symfony application:
+ 
 First, I created an empty `app` directory, 
 the `docker-compose.yml` file 
 and everything in the `docker` directory.
@@ -15,7 +17,7 @@ and everything in the `docker` directory.
 I started the Docker containers via PhpStorm (`docker-compose up` would 
 work, too).
 
-Then I ran `composer` in the PHP Docker container 
+Then I ran Composer in the PHP Docker container 
 (replacing `$PHPCONTAINERID` with the ID shown by `docker ps`):
 
 ```
@@ -28,7 +30,7 @@ $ docker exec \
 That’s all it took to set up the latest Symfony skeleton on the latest 
 PHP version! 
 
-Now I could access my application on `http://localhost:8080/`. 
+At that point, I could access my application on `http://localhost:8080/`. 
 Or run Symfony’s `console` command:
 
 ```
